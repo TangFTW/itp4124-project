@@ -15,7 +15,7 @@ terraform {
         }
         google = {
             source = "hashicorp/google"
-            version = "5.25.0"
+            version = "5.26.0"
         }
     }
     required_version = ">= 1.4.7"
@@ -23,7 +23,7 @@ terraform {
 
 provider "google" {
 #  credentials = file("path/to/service-account-key.json")
-  project     = "terraformproject-415508"
+  project     = "ite3103-assignment"
   region      = "asia-east2"
   zone        = "asia-east2-a"
 }
