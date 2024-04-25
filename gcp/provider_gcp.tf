@@ -15,15 +15,31 @@ terraform {
         }
         google = {
             source = "hashicorp/google"
+            version = "5.25.0"
+        }
+        google-beta = {
+            source = "hashicorp/google-beta"
             version = "5.26.0"
         }
     }
     required_version = ">= 1.4.7"
 }
 
+provider "aws" {
+  region = "us-east-1"
+}
+
 provider "google" {
-#  credentials = file("path/to/service-account-key.json")
-  project     = "ite3103-assignment"
+ # credentials = "terraformproject-415508-05982ee89e2a.json"
+  project     = "terraformproject-415508"
   region      = "asia-east2"
   zone        = "asia-east2-a"
 }
+
+provider "google-beta" {
+  #credentials = "terraformproject-415508-05982ee89e2a.json"
+  project     = "terraformproject-415508"
+  region      = "asia-east2"
+  zone        = "asia-east2-a"
+}
+provider "azurerm" {}
