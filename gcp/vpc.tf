@@ -1,45 +1,31 @@
-terraform {
-    required_providers {
-        aws = {
-            source = "hashicorp/aws"
-            version = "~> 5.0"
-        }
-        
-        kubernetes = {
-            source = "hashicorp/kubernetes"
-            version = "~> 2.0"
-        }
-        helm = {
-            source = "hashicorp/helm"
-            version = "2.13.0"
-        }
-        google = {
-            source = "hashicorp/google"
-            version = "5.25.0"
-        }
-        google-beta = {
-            source = "hashicorp/google-beta"
-            version = "5.26.0"
-        }
-    }
-    required_version = ">= 1.4.7"
+resource "google_project_service" "compute" {
+  project = "terraformproject-415508"
+  service = "compute.googleapis.com"
+  disable_dependent_services = true
+  disable_on_destroy = false
 }
 
-provider "aws" {
-  region = "us-east-1"
+resource "google_compute_network" "terraformvpc" {
+  project = "terraformproject-415508"
+
+  name = "terraformvpc"
+  routing_mode = "GLOBAL"
+
+  auto_create_subnetworks = false
 }
 
-provider "google" {
- # credentials = "terraformproject-415508-05982ee89e2a.json"
-  project     = "terraformproject-415508"
-  region      = "asia-east2"
-  zone        = "asia-east2-a"
+#private subnet 1
+resource "google_compute_subnetwork" "private1" {
+  name          = "private1"
+  ip_cidr_range = "10.0.0.0/24"
+  region        = "asia-east2"
+  network       = google_compute_network.terraformvpc.id
 }
 
-provider "google-beta" {
-  #credentials = "terraformproject-415508-05982ee89e2a.json"
-  project     = "terraformproject-415508"
-  region      = "asia-east2"
-  zone        = "asia-east2-a"
+#private  subnet 2
+resource "google_compute_subnetwork" "private2" {
+  name          = "private2"
+  ip_cidr_range = "10.0.2.0/24"
+  region        = "asia-east2"
+  network       = google_compute_network.terraformvpc.id
 }
-provider "azurerm" {}
