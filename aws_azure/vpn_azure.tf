@@ -2,7 +2,7 @@ resource "azurerm_public_ip" "gateway" {
   name                = "aws-vpn-gateway-ip"
   resource_group_name = azurerm_resource_group.ea2_rg_az.name
   location            = azurerm_resource_group.ea2_rg_az.location
-  allocation_method   = "Static"
+  allocation_method   = "Dynamic"
 }
 
 resource "azurerm_virtual_network_gateway" "aws" {
